@@ -237,30 +237,28 @@ function Home() {
            </div>
            <div className = "theProcess">
               <div className="theProcessItem">
-              <h2 className = "theProcessNumber">1</h2>
+              <h2 className = "theProcessNumber1">1</h2>
                 <div className = "theProcessText">
-                  <h4 className = "theProcessText">Enter the items you want into our boxes</h4>
+                  <h4 className = "theProcessText">Enter the unused items you want to find a new purpose for</h4>
                 </div>
               </div>
               <div className="theProcessItem">
-                <h2 className = "theProcessNumber">2</h2>
+                <h2 className = "theProcessNumber2">2</h2>
                 <div className = "theProcessText">
-                  <h4 className = "theProcessText">Click the button to find crafts that fit your items</h4>
+                  <h4 className = "theProcessText">Create custom personalized crafts based on your items</h4>
                 </div>
               </div>
               <div className="theProcessItem">
-              <h2 className = "theProcessNumber">3</h2>
+              <h2 className = "theProcessNumber3">3</h2>
                 <div className = "theProcessText">
-                <h4 className = "theProcessText">Follow the instructions to create your crafts</h4>
+                <h4 className = "theProcessText">Chose a difficulty and follow the instructions to create your crafts!</h4>
                 </div>
               </div>
            </div>    
         </div> 
         
         <h1 style={{textAlign: "left", fontWeight: "bold", fontSize: "45px", paddingBottom: "40px"}}>What will <span style={{textDecoration: "underline"}}>you</span> <span>create</span>?</h1>
-        <div className = 'addButtonContainer'> 
-          <button onClick={() => {addNewObjectInput()}}><h3 className='addButton'>Add an item</h3></button>
-        </div>
+        
         <br/>
         <div className='objectInputContainer'>
             {inputs.map((input, index) => (
@@ -272,10 +270,13 @@ function Home() {
                 onExtraInfoChange={(e) => handleInputChange(index, 'extraInfo', e.target.value)}
                 />
             ))}
+            <div className = 'addButtonContainer'> 
+                <button onClick={() => {addNewObjectInput()}}><h3 className='addButton'>+</h3></button>
+            </div>
         </div>
         <br/>
         <div className = 'addButtonContainer'> 
-          <button onClick={() => {generateCrafts()}}><h3 className='addButton'>Find crafts <BsHammer /></h3></button>
+          <button style={{paddingBottom: "20px;"}} onClick={() => {generateCrafts()}}><h3 className='addButton'> 🔨  FIND CRAFTS 🪚</h3></button>
         </div>
         
         {/* This is where the instructions will be displayed */}
@@ -304,6 +305,8 @@ function Home() {
                 })
             )}
         </div>
+
+        <div style={{paddingBottom: "300px"}} />
     </>
   )
 }

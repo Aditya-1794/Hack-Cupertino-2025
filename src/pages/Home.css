@@ -110,10 +110,10 @@ body {
     height: fit-content;
     width: fit-content;
     background-color: #5fbcff;
-    border-radius: 10%;
+    border-radius: 10px;
 
-    font-size: 15px;
-    padding: 10px;
+    font-size: 20px;
+    padding: 15px;
 
     display: flex;
     justify-content: left;
@@ -146,6 +146,7 @@ body {
 .theProcess {
     display: flex;
     flex-direction: row;
+    gap: 70px;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
@@ -164,14 +165,30 @@ body {
     border-radius: 10px;
     width: 500px; 
     
+    border: 1px dashed rgb(174, 174, 174);
 }
 
-.theProcessNumber{
+.theProcessNumber1 {
     font-size: 4rem;
     font-weight: bold;
     margin-right: 20px;
-    color: rgb(169, 169, 169); 
+    color: rgb(180, 180, 180); 
 }
+
+.theProcessNumber2 {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-right: 20px;
+    color: rgb(130, 130, 130);
+}
+
+.theProcessNumber3 {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-right: 20px;
+    color: rgb(80, 80, 80); 
+}
+
 
 .theProcessText{
     display: flex;
