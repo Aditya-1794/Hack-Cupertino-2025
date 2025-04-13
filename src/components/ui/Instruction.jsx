@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import "./Instruction.css"
 
+import { supabase } from '/Users/ayaanjha/Hack-Cupertino-2025/src/backend/SupabaseClient.jsx'
+
 function Instruction({ title, difficulty, instructions, materials }) {
   const [showPopup, setShowPopup] = useState(false)
 
@@ -14,9 +16,44 @@ function Instruction({ title, difficulty, instructions, materials }) {
 
   const difficultyColor = {
     Easy: 'green',
-    Medium: 'yellow',
+    Medium: 'orange',
     Hard: 'red'
   }
+
+  const saveCraft = async (title, difficulty, materials, instructions) => {
+    const { data: { session }, error } = await supabase.auth.getSession();
+    const user = session?.user;
+
+  
+    if (error) {
+      console.error('Error fetching user:', error.message);
+      return;
+    }
+  
+    if (!user) {
+      console.log('User not logged in');
+      return;
+    }
+  
+    const { error: insertError } = await supabase
+    .from('SavedCrafts')
+    .insert([
+        {
+        id: user.id,
+        title: title,
+        difficulty: difficulty,
+        materials: materials, // already a string
+        instructions: instructions, // already a string
+        }
+    ]);
+
+  
+    if (insertError) {
+      console.error('Error inserting craft:', insertError.message);
+    } else {
+      console.log('Craft saved successfully!');
+    }
+  };
 
   return (
     <>
@@ -32,6 +69,8 @@ function Instruction({ title, difficulty, instructions, materials }) {
                 <h3 style={{ color: difficultyColor[difficulty] }}>{difficulty}</h3>
             </div>
 
+            
+
             <div className='popupBody'>
                 <h3 className='popupHeading'>Materials</h3>
                 <h5 className="materials">
@@ -42,10 +81,24 @@ function Instruction({ title, difficulty, instructions, materials }) {
 
                 <h3 className='popupHeading'>Instructions</h3>
                 <h5 className='instructions'>
-                    {instructions.split('**').map((step, index) => (
-                        step.trim() && <div key={index} className="instruction-step">{step.trim()}</div>
+                    {instructions.split(/\d+\.\s/).map((step, index) => (
+                        step.trim() && (
+                        <div key={index} className="instruction-step">
+                            {index}. {step.trim()}
+                        </div>
+                        )
                     ))}
-                </h5>
+                    </h5>
+
+            </div>
+
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <div className='saveButtonContainer'>
+                <button className='saveButton' onClick={() => saveCraft(title, difficulty, materials, instructions)}>Save Craft</button>
             </div>
         </div>
       )}

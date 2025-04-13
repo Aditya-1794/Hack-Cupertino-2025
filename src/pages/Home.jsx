@@ -3,14 +3,21 @@ import './Home.css'
 
 import { Button } from "@/components/ui/button"
 import { BsHammer } from "react-icons/bs"
+import { TbRecycle } from "react-icons/tb"
 
 import Instruction from "../components/ui/Instruction"
 
 import { Link } from 'react-router-dom'
 
+import Login from '../components/ui/Login'
+
+import { supabase } from '../backend/SupabaseClient'
+
 import ItemInput from '../components/ui/ItemInput'
 import homepageSplash from '../images/craftsImage.png'
 //import { SkeletonDemo } from "@/components/ui/skeleton"
+
+
 
 import { CohereClientV2 } from 'cohere-ai';
 
@@ -60,7 +67,46 @@ function Home() {
           })
           .join('\n');
       
-        const prompt = `You are an expert DIY crafting assistant. A user has the following items:\n${itemDescriptions}\n\nBased on this, suggest 3 upcycling craft projects:\n- One should be easy, one medium, and one hard difficulty.\n- Each craft must list the required materials (centered around the items listed) and provide step-by-step numbered instructions.\n- Separate each craft with the symbol: --*--*--`;
+          const prompt = `You are an expert DIY crafting assistant.
+
+          A user has the following items:
+          ${itemDescriptions}
+          
+          Based on these items, suggest exactly 3 **distinct** upcycling craft projects:
+          - One should be **Easy**, one **Medium**, and one **Hard** difficulty.
+          - Each project must include these **three clearly labeled sections**, in **this exact order**:
+            1. **Difficulty** (just the word: Easy, Medium, or Hard — no extra text)
+            2. **Materials** (a bulleted list using "- ", focused on the user's items)
+            3. **Instructions** (a numbered list starting with "1. ", with clear step-by-step guidance)
+          
+          Important formatting rules:
+          - Title the project with this format exactly (no variation):  
+            \`### Project X: <Title> (<Difficulty>)\`  
+            For example: \`### Project 2: Bottle Lamp (Medium)\`
+          - Use **exactly** this delimiter between each project:  
+            \`--*--*--\` (on its own line)
+          - Each section header must be: \`**Difficulty**:\`, \`**Materials**:\`, or \`**Instructions**:\` (spelled exactly like this, with the colon and bold asterisks).
+          - Do **not** include any extra commentary, explanations, or greetings.
+          - Leave one blank line between sections within each project.
+          
+          Your response should look exactly like this (with content substituted):
+          
+          ### Project 1: Cool Title (Easy)  
+          **Difficulty**: Easy  
+          
+          **Materials**:  
+          - Item 1  
+          - Item 2  
+          
+          **Instructions**:  
+          1. Do the first thing  
+          2. Do the second thing  
+          
+          --*--*--
+          
+          [Repeat for Project 2 and Project 3]
+          `;
+          
       
         run(prompt);
       };
@@ -90,53 +136,85 @@ function Home() {
       };
 
       const parseCraftsResponse = (responseText) => {
-        const parsedCrafts = responseText.split('--*--*--').map((section) => {
-            const difficultyMatch = section.match(/###\s+\*\*(.*?) Difficulty: (.*?)\*\*/);
-            const materialsMatch = section.match(/\*\*Materials:\*\*([\s\S]*?)\*\*Instructions:\*\*/);
-            const instructionsMatch = section.match(/\*\*Instructions:\*\*([\s\S]*)/);
+        console.log('Response Text:', responseText); // Log the full response
     
-            const difficulty = difficultyMatch?.[1]?.trim() || '';
-            const title = difficultyMatch?.[2]?.trim() || '';
+        const parsedCrafts = responseText.split('--*--*--').map((section, index) => {
+            console.log(`Section ${index + 1}:`, section); // Log each section
     
-            const materials = materialsMatch?.[1]
-                .split('-')
-                .map(m => m.trim())
-                .filter(Boolean);
+            //Extract parts of the response using regex
+            const titleMatch = section.match(/### Project \d+:\s*(.+?)\s*\(/);
+            const difficultyMatch = section.match(/\*\*Difficulty\*\*:\s*(.+)/);
+            const materialsMatch = section.match(/\*\*Materials\*\*:\s*([\s\S]*?)\n\s*\*\*/);
+            const instructionsMatch = section.match(/\*\*Instructions\*\*:\s*([\s\S]*)/);
     
-            const instructions = instructionsMatch?.[1]
-                .split(/\d+\.\s+/)
-                .map(step => step.trim())
-                .filter(Boolean);
+            console.log('Title Match:', titleMatch);
+            console.log('Difficulty Match:', difficultyMatch);
+            console.log('Materials Match:', materialsMatch);
+            console.log('Instructions Match:', instructionsMatch);
     
-            console.log(instructions)
+            try {
+                const title = titleMatch?.[1]?.trim() || '';
+                const difficulty = difficultyMatch?.[1]?.trim() || '';
+                console.log('PrevMaterials', materialsMatch?.[1]);
+    
+                const materials = materialsMatch?.[1]
+                    .split('-')
+                    .map(m => m.trim())
+                    .filter(Boolean);
+                
+                console.log('Materials:', materials);
 
-            return {
-                difficulty,
-                title,
-                materials,
-                instructions
-            };
+                const instructions = instructionsMatch?.[1]
+                    .split('\n')
+                    .map(m => m.trim())
+                    .filter(Boolean);
+                console.log('Formatted Instructions:', instructions);
+    
+                if (!instructions || instructions.length === 0) {
+                    alert(`Blank instructions returned! Full response section:\n${section}`);
+                }
+    
+                return {
+                    title,
+                    difficulty,
+                    materials,
+                    instructions
+                };
+            } catch (error) {
+                alert(`An error occurred: ${error.message}`);
+                return {
+                    title: '',
+                    difficulty: '',
+                    materials: [],
+                    instructions: []
+                };
+            }
         });
     
-        setCrafts(parsedCrafts);  // Set the crafts state with the parsed data
+        console.log('Parsed Crafts:', parsedCrafts); 
+        setCrafts(parsedCrafts); // Update the crafts state with the parsed data
     };
-      
+    
       
   
     return (
     <>
       
-        <div className='header'>
-            <h1 className='logo'>Upcycle</h1>
+      <div className='header'>
+            <h1 className='logo'><div style={{ display: 'flex', alignItems: 'center', flexDirection: 'row', gap: '10px'}}><span><TbRecycle /> </span>Upcycle</div></h1>
             <div className='menubar'>
-                <Link to="/"><h2>Home</h2></Link>
+                <Link to="/"><h2 className='menuBarHome' style={{fontWeight: "bold", fontSize: "1.4rem", marginTop:"-12px", marginLeft: "20px"}}>Home</h2></Link>
+                <Link to="/SavedCrafts"><h2 className='menuBarHome' style={{fontWeight: "bold", fontSize: "1.4rem", marginTop:"-12px", marginLeft: "20px"}}>Saved Crafts</h2></Link>
+                <Link to="/OurMission"><h2 className='menuBarHome' style={{fontWeight: "bold", fontSize: "1.4rem", marginTop:"-12px", marginLeft: "20px"}}>Our Mission</h2></Link>
+                
+                <Login></Login>
             </div>
         </div>
         
 
         <div className='heroSectionContainer'>
             <div className="heroSection">
-                <h1 className="giantText uniqueGiantText">Sustain <br />your craft</h1>
+                <h1 className="giantText uniqueGiantText">Sustain <br />your <span style={{fontFamily: 'Underdog', color: "darkgreen"}}>craft</span></h1>
                 <img src={homepageSplash} alt="Homepage Splash" className="heroImage" />
             </div>
             
@@ -182,26 +260,32 @@ function Home() {
                 />
             ))}
         </div>
+        <br/>
         <div className = 'addButtonContainer'> 
           <button onClick={() => {generateCrafts()}}><h3 className='addButton'>Find crafts <BsHammer /></h3></button>
         </div>
         
         {/* This is where the instructions will be displayed */}
         <div className="craftsContainer">
-        {loading ? (
-            <h1>Loading crafts...</h1>
+            {loading ? (
+                <h1>Loading crafts...</h1>
             ) : (
-            crafts.map((craft, index) => (
-                <Instruction 
-                key={index} 
-                title={craft.title} 
-                difficulty={craft.difficulty} 
-                instructions={craft.instructions.join(' ')} 
-                materials={craft.materials.join(', ')} 
-                />
-            ))
+                crafts.map((craft, index) => {
+                    if (!Array.isArray(craft.instructions)) {
+                        console.log(`Instructions for craft at index ${index} is not an array:`, craft.instructions);
+                    }
+                    return (
+                        <Instruction 
+                            key={index} 
+                            title={craft.title} 
+                            difficulty={craft.difficulty} 
+                            instructions={Array.isArray(craft.instructions) ? craft.instructions.join('\n') : craft.instructions} 
+                            materials={craft.materials.join(', ')} 
+                        />
+                    );
+                })
             )}
-            </div>
+        </div>
     </>
   )
 }

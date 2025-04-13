@@ -8,10 +8,17 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+
+    height: 20px;
 }
 
 .logo {
-    
+    font-size: 40px;
+    font-weight: bolder;
+
+    position: relative;
+    top: 20px;
+    left: -100px;
 }
 
 .heroSection {
@@ -22,6 +29,12 @@ body {
     margin-top: 20px;
 
     background-color: rgb(221, 254, 221);
+
+    width: 100vw;
+    left: 600px;
+    right: 0;
+    margin-left: -50vw;
+    margin-right: -50vw;
 }
 
 .uniqueGiantText {
@@ -30,7 +43,7 @@ body {
     font-size: 9rem;
     text-align: left;
     margin: 0;
-    margin-left: 24%;
+    margin-left: 29%;
     font-family: 'Quicksand', sans-serif;
     color: black; 
     width: 70%;
@@ -43,29 +56,29 @@ body {
 .heroImage {
     max-width: 100%;
     height: auto;
-    z-index: 999;
+    z-index: 998;
 
-    margin-right: -600px;
+    margin-right: -840px;
 }
 
 .scrolldown {
     display: flex;
-    justify-content: left; /* Center the button */
-    align-items: left; /* Center the button vertically */
-    height: 100vh; /* Full viewport height */
-    margin-top: 20px; /* Add spacing above the button */
+    justify-content: left; 
+    align-items: left; 
+    height: 100vh; 
+    margin-top: 20px; 
 }
 
 .buttonContainer {
-    width: 100%; /* Make the container span the full width */
-    text-align: left; /* Align the content to the left */
-    margin-top: 20px; /* Add spacing above the container */
+    width: 100%; 
+    text-align: left; 
+    margin-top: 20px; 
 }
 
 .scrollButton {
     padding: 10px 20px;
     font-size: 1rem;
-    background-color: #007BFF;
+    background-color: #5fbcff;
     color: white;
     border: none;
     border-radius: 5px;
@@ -76,6 +89,7 @@ body {
 .scrollButton:hover {
     background-color: #0056b3;
 }
+
 .menubar {
     display: flex;
     justify-content: center; 
@@ -106,6 +120,10 @@ body {
     /*color: /*rgb(48, 110, 39) black*/
 }
 
+.addButton:hover {
+    background-color: #0056b3;
+}
+
 .objectInputContainer {
     display: flex;
     flex-direction: row;
@@ -118,14 +136,7 @@ body {
 }
 
 .heroSectionContainer {
-    /* margin-top:10%;
     height: 100vh;
-    background-image: url("../images/woodBG.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-
-    width: 100vw; */
 }
 
 .theProcess {
@@ -147,7 +158,7 @@ body {
     padding: 20px;
     background-color: #ffffff;
     border-radius: 10px;
-    width: 500px; /* Set a fixed width */
+    width: 500px; 
     
 }
 
@@ -155,7 +166,7 @@ body {
     font-size: 4rem;
     font-weight: bold;
     margin-right: 20px;
-    color: rgb(169, 169, 169); /* Change the color to blue */
+    color: rgb(169, 169, 169); 
 }
 
 .theProcessText{
@@ -166,4 +177,9 @@ body {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 10px;
+}
+
+.menuBarHome:hover {
+    color: rgb(159, 159, 159);
+    cursor: pointer;
 }

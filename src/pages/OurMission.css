@@ -1,0 +1,14 @@
+.missionHeader{
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.missionText{
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    text-align: left;
+}
