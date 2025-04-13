@@ -12,6 +12,10 @@ body {
     height: 20px;
 }
 
+.header h2 {
+    padding-left: 40px;
+}
+
 .logo {
     font-size: 40px;
     font-weight: bolder;
@@ -172,6 +176,8 @@ body {
 .theProcessText{
     display: flex;
     flex-direction: column;
+
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 .theProcessHeader{
     font-size: 1.5rem;

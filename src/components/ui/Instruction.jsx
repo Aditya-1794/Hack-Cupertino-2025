@@ -31,7 +31,7 @@ function Instruction({ title, difficulty, instructions, materials }) {
     }
   
     if (!user) {
-      console.log('User not logged in');
+      alert('You must be logged in to save a craft!');
       return;
     }
   
@@ -51,7 +51,7 @@ function Instruction({ title, difficulty, instructions, materials }) {
     if (insertError) {
       console.error('Error inserting craft:', insertError.message);
     } else {
-      console.log('Craft saved successfully!');
+      alert('Craft saved successfully!');
     }
   };
 

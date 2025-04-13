@@ -15,7 +15,8 @@ import { supabase } from '../backend/SupabaseClient'
 
 import ItemInput from '../components/ui/ItemInput'
 import homepageSplash from '../images/craftsImage.png'
-//import { SkeletonDemo } from "@/components/ui/skeleton"
+
+import { SkeletonDemo } from '../components/ui/SkeletonDemo'
 
 
 
@@ -214,7 +215,18 @@ function Home() {
 
         <div className='heroSectionContainer'>
             <div className="heroSection">
-                <h1 className="giantText uniqueGiantText">Sustain <br />your <span style={{fontFamily: 'Underdog', color: "darkgreen"}}>craft</span></h1>
+            <h1 className="giantText uniqueGiantText">
+            Sustain <br />your{" "}
+            <span style={{ fontFamily: 'Underdog' }}>
+                <span style={{ color: "#8B5E3C" }}>c</span>
+                <span style={{ color: "#C89F76" }}>r</span>
+                <span style={{ color: "#A3A847" }}>a</span> 
+                <span style={{ color: "#6B8E23" }}>f</span>
+                <span style={{ color: "#5D737E" }}>t</span> 
+                </span>
+
+            </h1>
+
                 <img src={homepageSplash} alt="Homepage Splash" className="heroImage" />
             </div>
             
@@ -245,8 +257,9 @@ function Home() {
            </div>    
         </div> 
         
+        <h1 style={{textAlign: "left", fontWeight: "bold", fontSize: "45px", paddingBottom: "40px"}}>What will <span style={{textDecoration: "underline"}}>you</span> <span>create</span>?</h1>
         <div className = 'addButtonContainer'> 
-          <button onClick={() => {addNewObjectInput()}}><h3 className='addButton'>Add another item</h3></button>
+          <button onClick={() => {addNewObjectInput()}}><h3 className='addButton'>Add an item</h3></button>
         </div>
         <br/>
         <div className='objectInputContainer'>
@@ -268,7 +281,12 @@ function Home() {
         {/* This is where the instructions will be displayed */}
         <div className="craftsContainer">
             {loading ? (
-                <h1>Loading crafts...</h1>
+                // <h1 style={{textAlign: "left", paddingTop: "20px", paddingBottom: "100px"}}>Loading crafts...</h1>
+                <>
+                    <SkeletonDemo />
+                    <SkeletonDemo />
+                    <SkeletonDemo />
+                </>
             ) : (
                 crafts.map((craft, index) => {
                     if (!Array.isArray(craft.instructions)) {
