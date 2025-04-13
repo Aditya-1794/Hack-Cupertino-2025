@@ -46,8 +46,10 @@ import {
 };
 function Home() {
     const [inputs, setInputs] = useState([
+        { itemName: '', extraInfo: '' },
+        { itemName: '', extraInfo: '' },
         { itemName: '', extraInfo: '' }
-      ]);
+    ]);
       
       const addNewObjectInput = () => {
         setInputs([...inputs, { itemName: '', extraInfo: '' }]);
@@ -275,10 +277,11 @@ function Home() {
             </div>
         </div>
         <br/>
+        
         <div className = 'addButtonContainer'> 
           <button style={{paddingBottom: "20px;"}} onClick={() => {generateCrafts()}}><h3 className='addButton'> 🔨  FIND CRAFTS 🪚</h3></button>
         </div>
-        
+
         {/* This is where the instructions will be displayed */}
         <div className="craftsContainer">
             {loading ? (
