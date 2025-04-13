@@ -1,0 +1,169 @@
+body {
+    background-color: white;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.logo {
+    
+}
+
+.heroSection {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
+    background-color: rgb(221, 254, 221);
+}
+
+.uniqueGiantText {
+    position: absolute;
+    z-index: 1;
+    font-size: 9rem;
+    text-align: left;
+    margin: 0;
+    margin-left: 24%;
+    font-family: 'Quicksand', sans-serif;
+    color: black; 
+    width: 70%;
+
+    line-height: 150px;
+    
+    margin-right: 625px;
+}
+
+.heroImage {
+    max-width: 100%;
+    height: auto;
+    z-index: 999;
+
+    margin-right: -600px;
+}
+
+.scrolldown {
+    display: flex;
+    justify-content: left; /* Center the button */
+    align-items: left; /* Center the button vertically */
+    height: 100vh; /* Full viewport height */
+    margin-top: 20px; /* Add spacing above the button */
+}
+
+.buttonContainer {
+    width: 100%; /* Make the container span the full width */
+    text-align: left; /* Align the content to the left */
+    margin-top: 20px; /* Add spacing above the container */
+}
+
+.scrollButton {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.scrollButton:hover {
+    background-color: #0056b3;
+}
+.menubar {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+.addButtonContainer{
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    margin-top: 20px;
+}
+
+.addButton {
+    height: fit-content;
+    width: fit-content;
+    background-color: #5fbcff;
+    border-radius: 10%;
+
+    font-size: 15px;
+    padding: 10px;
+
+    display: flex;
+    justify-content: left;
+    align-items: left;
+
+    color: white;
+
+    /*color: /*rgb(48, 110, 39) black*/
+}
+
+.objectInputContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+.heroSectionContainer {
+    /* margin-top:10%;
+    height: 100vh;
+    background-image: url("../images/woodBG.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    width: 100vw; */
+}
+
+.theProcess {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+.theProcessItem{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 500px; /* Set a fixed width */
+    
+}
+
+.theProcessNumber{
+    font-size: 4rem;
+    font-weight: bold;
+    margin-right: 20px;
+    color: rgb(169, 169, 169); /* Change the color to blue */
+}
+
+.theProcessText{
+    display: flex;
+    flex-direction: column;
+}
+.theProcessHeader{
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}

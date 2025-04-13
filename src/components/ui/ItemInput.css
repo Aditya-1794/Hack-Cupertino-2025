@@ -1,0 +1,30 @@
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    width: 200px;
+    height: 200px;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    background-color: white;
+
+    box-shadow: rgba(177, 177, 177, 0.15) 3.95px 3.95px 4.6px;
+
+    border: 1px solid black;
+}
+
+.inputContainer Input {
+    border: 1px solid black;
+}
+
+.inputContainer TextArea {
+    border: 1px solid black;
+}
+
+.inputContainer Label {
+    color: black;
+}
